@@ -7,8 +7,6 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import day22.Contact;
-
 public class AddressBook {
 
 	static ArrayList<Contact> addressBook = new ArrayList<>();
