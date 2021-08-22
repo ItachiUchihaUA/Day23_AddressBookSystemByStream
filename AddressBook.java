@@ -6,11 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import day22.Contact;
 
 public class AddressBook {
 
@@ -28,6 +25,8 @@ public class AddressBook {
 		searchInCityOrState();
 		countForCity();
 		countForState();
+		sortByCityStateOrZip();
+		addressBook.stream().forEach(n -> {n.getFirstName(); n.getLastName(); n.getCity(); n.getState(); n.getZip();});
 	}
 
 	static public void addContact() {
@@ -162,5 +161,25 @@ public class AddressBook {
 		String State = sc.next();
 		System.out.println("Count: "+stateBook.entrySet().stream().filter(n -> n.getValue().equals(State)).count());
 		
+	}
+	public static void sortByCityStateOrZip() {
+		System.out.println("Enter 1 to sort by City \n\t 2 to sort by State \n\t 2 to sort by Zip");
+		Scanner sc = new Scanner(System.in);
+		int select = sc.nextInt();
+		if(select ==1) {
+			addressBook = addressBook.stream().sorted(Comparator.comparing(Contact :: getCity)).collect(Collectors.toList());
+			addressBook.stream().forEach(n -> {n.getFirstName(); n.getLastName(); n.getCity(); n.getState(); n.getZip();});
+		}
+		else if(select ==2) {
+			addressBook = addressBook.stream().sorted(Comparator.comparing(Contact :: getState)).collect(Collectors.toList());
+			addressBook.stream().forEach(n -> {n.getFirstName(); n.getLastName(); n.getCity(); n.getState(); n.getZip();});
+		}
+		else if(select==3) {
+			addressBook = addressBook.stream().sorted(Comparator.comparing(Contact :: getZip)).collect(Collectors.toList());
+			addressBook.stream().forEach(n -> {n.getFirstName(); n.getLastName(); n.getCity(); n.getState(); n.getZip();});
+		}
+		else {
+			System.out.println("Wrong Entry!");
+		}
 	}
 }
