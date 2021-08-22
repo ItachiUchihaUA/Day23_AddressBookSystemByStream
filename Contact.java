@@ -58,7 +58,11 @@ public class Contact {
 		this.zip = zip;
 	} 
 	
-	public boolean equals(String c) {
+	public boolean firstEquals(String c) {
 		return this.getFirstName().equals(c);
+	}
+	
+	public boolean cityEquals(String c) {
+		return this.getCity().equals(c);
 	}
 }

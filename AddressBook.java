@@ -12,6 +12,7 @@ public class AddressBook {
 		addContact();
 		editContact();
 		deleteContact();
+		searchInCityOrState();
 	}
 
 	static public void addContact() {
@@ -19,14 +20,14 @@ public class AddressBook {
 		while (flag == 0) {
 			Contact c = new Contact();
 			Scanner sc = new Scanner(System.in);
-			System.out.println("---New Contact---");
+			System.out.println("\n---New Contact---");
 			System.out.println("Enter First Name: ");
 			String firstName = sc.next();
 
 			if (!addressBook.isEmpty()) {
 				//Using Stream to Check any same Contact exists or not!
-				if (addressBook.stream().anyMatch(n -> n.equals(firstName))) {
-					System.out.println("Contact Exists!");
+				if (addressBook.stream().anyMatch(n -> n.firstEquals(firstName))) {
+					System.err.println("\nContact Exists!");
 					return;
 				}
 			}
@@ -47,7 +48,7 @@ public class AddressBook {
 			
 			
 
-			System.out.println("Want to Add more? Enter 0 for Yes or 1 for No :");
+			System.out.println("Want to Add more? \n Enter 0 for Yes or 1 for No :\n");
 			flag = sc.nextInt();
 
 		}
@@ -97,6 +98,31 @@ public class AddressBook {
 		}
 		if (flag2 == 0) {
 			System.out.println("No Such Contact Found!");
+		}
+	}
+	
+	static public void searchInCityOrState() {
+		if(addressBook.isEmpty()) {
+			System.err.println("Empty Book!");
+			return;
+		}
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter 1 to search in City or 2 to search in State");
+		int temp= sc.nextInt();
+		if(temp==1) {
+			System.out.println("Enter City Name: ");
+			String city=sc.next();
+			addressBook.stream().filter(n -> n.cityEquals(city)).forEach(n -> System.out.println("  "+n.getFirstName()));
+		}
+		
+		else if(temp==2) {
+			System.out.println("Enter State Name: ");
+			String state=sc.next();
+			addressBook.stream().filter(n -> n.getState().equals(state)).forEach(n -> System.out.println("  "+n.getFirstName()));
+		}
+		else {
+			System.out.println("\nEnter 1 or 2 only!");
+			searchInCityOrState();
 		}
 	}
 }
