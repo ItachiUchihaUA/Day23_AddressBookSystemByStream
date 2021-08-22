@@ -24,11 +24,10 @@ public class AddressBook {
 			String firstName = sc.next();
 
 			if (!addressBook.isEmpty()) {
-				for (int i = 0; i < addressBook.size(); i++) {
-					if (addressBook.get(i).equals(firstName)) {
-						System.out.println("Contact Exists!");
-						return;
-					}
+				//Using Stream to Check any same Contact exists or not!
+				if (addressBook.stream().anyMatch(n -> n.equals(firstName))) {
+					System.out.println("Contact Exists!");
+					return;
 				}
 			}
 			c.setFirstName(firstName);
@@ -45,8 +44,10 @@ public class AddressBook {
 			System.out.println("Enter Phone: ");
 			c.setPhone(sc.next());
 			addressBook.add(c);
+			
+			
 
-			System.out.println("Want to Add more? Enter 1 for Yes or 2 for No :");
+			System.out.println("Want to Add more? Enter 0 for Yes or 1 for No :");
 			flag = sc.nextInt();
 
 		}
