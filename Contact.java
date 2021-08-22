@@ -58,8 +58,7 @@ public class Contact {
 		this.zip = zip;
 	} 
 	
-	public boolean equals(Contact c) {
-		return this.getFirstName().equals(c.getFirstName());
+	public boolean equals(String c) {
+		return this.getFirstName().equals(c);
 	}
-	
 }
