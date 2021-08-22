@@ -1,17 +1,20 @@
 package day24_addressbook;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import day22.Contact;
 
 public class AddressBook {
 
-	static ArrayList<Contact> addressBook = new ArrayList<>();
+	static List<Contact> addressBook = new ArrayList<>();
 	static Map<Contact, String> cityBook = new HashMap<>();
 	static Map<Contact, String> stateBook = new HashMap<>();
 
@@ -57,7 +60,7 @@ public class AddressBook {
 			System.out.println("Enter Phone: ");
 			c.setPhone(sc.next());
 			addressBook.add(c);
-			
+			addressBook = addressBook.stream().sorted(Comparator.comparing(Contact :: getFirstName)).collect(Collectors.toList());
 			}
 			System.out.println("Want to Add more? \n Enter 0 for Yes or 1 for No :\n");
 			flag = sc.nextInt();
